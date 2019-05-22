@@ -1,8 +1,32 @@
 import React,{Component} from 'react'
+import {List,Button,Feed,Icon,Container} from 'semantic-ui-react'
+
 
 class TodoItems extends Component{
     createTasks(item){ 
-        return (<li key={item.key}>{item.text}</li>);
+        let newDate = new Date();
+        let date = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+
+        return (
+            <Feed>
+                <Feed.Event>
+                    <Feed.Content>
+                        <List as='li' key={item.key}>{item.text}</List>
+                        <Feed.Date>{date}-{month}-{year}</Feed.Date>
+                    </Feed.Content>
+                    <Button animated color='blue'>
+                        <Button.Content visible><Icon name="edit" /></Button.Content>
+                        <Button.Content hidden>Edit</Button.Content>
+                    </Button>
+                    <Button animated color='blue' onClick={()=> this.state.deleteItem(item.key)} >
+                        <Button.Content visible><Icon name="trash alternate" /></Button.Content>
+                        <Button.Content hidden>Remove</Button.Content>
+                    </Button>
+                </Feed.Event>
+            </Feed>
+        );
     }
 
     render(){
@@ -10,7 +34,11 @@ class TodoItems extends Component{
         const listItems = todoEnteries.map(this.createTasks)
 
         return(
-            <ul>{listItems}</ul>
+            <center>
+            <Container>
+            <List as='ol'>{listItems}</List>
+            </Container>
+            </center>
         );
     }
 }
