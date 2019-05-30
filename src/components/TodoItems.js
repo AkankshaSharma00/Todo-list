@@ -3,6 +3,12 @@ import {List,Button,Feed,Icon,Container} from 'semantic-ui-react'
 
 
 class TodoItems extends Component{
+    constructor(){
+        super();
+
+        this.createTasks = this.createTasks.bind(this);
+    }
+
     createTasks(item){ 
         let newDate = new Date();
         let date = newDate.getDate();
@@ -16,11 +22,7 @@ class TodoItems extends Component{
                         <List as='li' key={item.key}>{item.text}</List>
                         <Feed.Date>{date}-{month}-{year}</Feed.Date>
                     </Feed.Content>
-                    <Button animated color='blue'>
-                        <Button.Content visible><Icon name="edit" /></Button.Content>
-                        <Button.Content hidden>Edit</Button.Content>
-                    </Button>
-                    <Button animated color='blue' onClick={()=> this.state.deleteItem(item.key)} >
+                    <Button animated color='blue' onClick={()=> this.props.deleteItem(item.key)} >
                         <Button.Content visible><Icon name="trash alternate" /></Button.Content>
                         <Button.Content hidden>Remove</Button.Content>
                     </Button>
@@ -36,7 +38,7 @@ class TodoItems extends Component{
         return(
             <center>
             <Container>
-            <List as='ol'>{listItems}</List>
+                <List as='ol'>{listItems}</List>
             </Container>
             </center>
         );
