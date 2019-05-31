@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 
 import {Header} from 'semantic-ui-react';
@@ -20,6 +19,7 @@ class App extends Component {
     this.deleteItem = this.deleteItem.bind(this);
   }
 
+  // Method to handle inputs from the user.
   handleInput = e =>{
     const itemText = e.target.value
     const currentItem = {text: itemText, key: Date.now()}
@@ -28,6 +28,7 @@ class App extends Component {
     })
   }
 
+  // Method to add items to the list.
   addItem = e =>{
     e.preventDefault()
     const newItem = this.state.currentItem
@@ -41,6 +42,8 @@ class App extends Component {
     }
   }
 
+
+  // Method to delete items from the list
   deleteItem = key =>{
     const filteredItems = this.state.items.filter(item =>{
       return item.key !== key
@@ -60,7 +63,7 @@ class App extends Component {
           handleInput={this.handleInput}
           currentItem={this.state.currentItem}
         />
-        <TodoItems enteries={this.state.items} deleteItem={this.state.deleteItem} />
+        <TodoItems key={this.state.currentItem.key} enteries={this.state.items} deleteItem={this.deleteItem} />
       </div>
     );
   }
